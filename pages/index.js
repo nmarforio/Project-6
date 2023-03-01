@@ -19,6 +19,7 @@ export default function Home() {
 
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
+    handleRender()
   }
 
   async function handleRemoveCard(id) {
@@ -40,6 +41,7 @@ export default function Home() {
       method: 'PUT',
       body: JSON.stringify(updatedCard)
     })
+    handleRender();
   }
 
   return (
@@ -48,7 +50,7 @@ export default function Home() {
         {cardList.map((card) => {
           return (
             <Card
-              key={card._id}
+              key={card.name}
               name={card.name}
               text={card.text}
               onRemoveCard={() => handleRemoveCard(card._id)}
