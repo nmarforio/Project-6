@@ -13,23 +13,18 @@ export default function Home() {
   }
   console.log(data);
 
-  // async function getServerSideProps() {
-  //   try {
-  //     let response = await fetch("/");
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  // getServerSideProps();
 
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
   }
 
-  function handleRemoveCard(id) {
-    setCardList(cardList.filter((card) => card.id !== id));
-  }
+  async function handleRemoveCard(id) {
+    await fetch(`/api/card/${id}`, 
+    {
+      method: "DELETE"
+    }) 
+    }
+  
 
   function handleUpdateCard(updatedCard) {
     const updatedCardList = cardList.map((card) => {
