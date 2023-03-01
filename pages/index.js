@@ -1,5 +1,4 @@
-import { useState } from "react";
-import useSWR from "swr";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "../components/Card";
 import Form from "../components/Form";
@@ -7,27 +6,34 @@ import Form from "../components/Form";
 export default function Home() {
   const [cardList, setCardList] = useState([]);
 
-  const { data } = useSWR("/api");
-  if (!data) {
-    return <h1>is Loading</h1>;
-  }
-  console.log(data);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch('/api');
+      const json = await data.json();
+      setCardList(json)
+    }
+    fetchData()
+      .catch(console.error);
+  }, [])
 
+  console.log(cardList)
 
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
   }
 
+
   async function handleRemoveCard(id) {
+    console.log('clicked')
     await fetch(`/api/card/${id}`, {
-      method: "DELETE"
-    }) 
-    }
-  
+      method: "DELETE",
+    });
+  }
+
 
   function handleUpdateCard(updatedCard) {
     const updatedCardList = cardList.map((card) => {
-      if (card.id === updatedCard.id) {
+      if (card._id === updatedCard._id) {
         return updatedCard;
       }
       return card;
@@ -41,12 +47,12 @@ export default function Home() {
         {cardList.map((card) => {
           return (
             <Card
-              key={card.id}
+              key={card._id}
               name={card.name}
               text={card.text}
-              onRemoveCard={handleRemoveCard}
+              onRemoveCard={() => handleRemoveCard(card._id)}
               onUpdateCard={handleUpdateCard}
-              id={card.id}
+              id={card._id}
             />
           );
         })}
