@@ -16,8 +16,6 @@ export default function Home() {
       .catch(console.error);
   }, [])
 
-  console.log(cardList)
-
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
   }
@@ -31,14 +29,11 @@ export default function Home() {
   }
 
 
-  function handleUpdateCard(updatedCard) {
-    const updatedCardList = cardList.map((card) => {
-      if (card._id === updatedCard._id) {
-        return updatedCard;
-      }
-      return card;
-    });
-    setCardList(updatedCardList);
+  async function handleUpdateCard(updatedCard) {
+    const response = await fetch(`api/card/${updatedCard._id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedCard)
+    })
   }
 
   return (
