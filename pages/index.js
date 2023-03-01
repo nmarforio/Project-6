@@ -10,10 +10,12 @@ export default function Home() {
     const fetchData = async () => {
       const data = await fetch("/api");
       const json = await data.json();
+
       setCardList(json);
     };
     fetchData().catch(console.error);
   }, []);
+
 
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
@@ -33,15 +35,11 @@ export default function Home() {
     setCardList(cardData);
   }
 
-  function handleUpdateCard(updatedCard) {
-    const updatedCardList = cardList.map((card) => {
-      if (card._id === updatedCard._id) {
-        return updatedCard;
-      }
-      return card;
-    });
-    setCardList(updatedCardList);
-    //handleRender();
+  async function handleUpdateCard(updatedCard) {
+    const response = await fetch(`api/card/${updatedCard._id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedCard)
+    })
   }
 
   return (
