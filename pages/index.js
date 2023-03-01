@@ -16,14 +16,20 @@ export default function Home() {
       .catch(console.error);
   }, [])
 
+  console.log(cardList)
 
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
   }
 
-  function handleRemoveCard(id) {
-    setCardList(cardList.filter((card) => card._id !== id));
+
+  async function handleRemoveCard(id) {
+    console.log('clicked')
+    await fetch(`/api/card/${id}`, {
+      method: "DELETE",
+    });
   }
+
 
   function handleUpdateCard(updatedCard) {
     const updatedCardList = cardList.map((card) => {
@@ -44,7 +50,7 @@ export default function Home() {
               key={card._id}
               name={card.name}
               text={card.text}
-              onRemoveCard={handleRemoveCard}
+              onRemoveCard={() => handleRemoveCard(card._id)}
               onUpdateCard={handleUpdateCard}
               id={card._id}
             />
