@@ -1,27 +1,10 @@
 import { useState, useEffect } from "react";
-import useSWR from "swr";
 import styled from "styled-components";
 import Card from "../components/Card";
 import Form from "../components/Form";
 
 export default function Home() {
   const [cardList, setCardList] = useState([]);
-
-  // const { data } = useSWR("/api");
-  // if (!data) {
-  //   return <h1>is Loading</h1>;
-  // }
-  // console.log(data);
-
-  // async function getServerSideProps() {
-  //   try {
-  //     let response = await fetch("/");
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  // getServerSideProps();
 
   useEffect(() => {
     const fetchData = async () => {

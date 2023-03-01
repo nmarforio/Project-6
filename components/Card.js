@@ -16,7 +16,7 @@ export default function Card({ name, text, onRemoveCard, onUpdateCard, id }) {
     const updatedCard = {
       text: formElements.text.value,
       name: formElements.name.value,
-      id: id,
+      _id: id,
     };
     onUpdateCard(updatedCard);
     setIsEditing(false);
