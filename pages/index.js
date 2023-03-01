@@ -8,28 +8,30 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch('/api');
+      const data = await fetch("/api");
       const json = await data.json();
-      setCardList(json)
-    }
-    fetchData()
-      .catch(console.error);
-  }, [])
-
-  console.log(cardList)
+      setCardList(json);
+    };
+    fetchData().catch(console.error);
+  }, []);
 
   function addCard(newCard) {
     setCardList([newCard, ...cardList]);
   }
 
-
   async function handleRemoveCard(id) {
-    console.log('clicked')
+    console.log("clicked");
     await fetch(`/api/card/${id}`, {
       method: "DELETE",
     });
+    handleRender();
   }
 
+  async function handleRender() {
+    const data = await fetch("/api/card");
+    const cardData = await data.json();
+    setCardList(cardData);
+  }
 
   function handleUpdateCard(updatedCard) {
     const updatedCardList = cardList.map((card) => {
@@ -39,6 +41,7 @@ export default function Home() {
       return card;
     });
     setCardList(updatedCardList);
+    //handleRender();
   }
 
   return (
