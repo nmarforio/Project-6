@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BsPlusCircleFill } from "react-icons/bs";
 
 export default function Form({ onAddCard }) {
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const form = event.target;
@@ -14,7 +14,22 @@ export default function Form({ onAddCard }) {
       name: name,
     };
 
+    const response = await fetch("/api/card", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCard),
+    });
+
+    console.log(newCard);
     onAddCard(newCard);
+
+    if (response.ok) {
+      await response.json();
+    } else {
+      console.error(response.status);
+    }
 
     form.reset();
   }
