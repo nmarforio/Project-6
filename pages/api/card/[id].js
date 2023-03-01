@@ -1,4 +1,4 @@
-import Card from "../../../db/model/Card"
+import Card from "../../../db/model/Card";
 import dbConnect from "../../../db/connect";
 
 export default async function handler(req, res) {
