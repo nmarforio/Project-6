@@ -19,8 +19,7 @@ export default function Home() {
   }
 
   async function handleRemoveCard(id) {
-    await fetch(`/api/card/${id}`, 
-    {
+    await fetch(`/api/card/${id}`, {
       method: "DELETE"
     }) 
     }
