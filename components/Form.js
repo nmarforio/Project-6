@@ -23,7 +23,7 @@ export default function Form({ onAddCard }) {
     });
 
     console.log(newCard);
-    // onAddCard(newCard);
+    onAddCard(newCard);
 
     if (response.ok) {
       await response.json();
